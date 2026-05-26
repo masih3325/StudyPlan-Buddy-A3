@@ -31,3 +31,15 @@ export async function getStudyPlans() {
 }
 
 export const saveStudyPlan = createStudyPlan;
+
+export async function deleteStudyPlan(id) {
+  const response = await fetch(`${API_BASE_URL}/api/study-plans/${id}`, {
+    method: "DELETE",
+  });
+
+  if (!response.ok) {
+    throw new Error("Failed to delete study plan");
+  }
+
+  return response.json();
+}

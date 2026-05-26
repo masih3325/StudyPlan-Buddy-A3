@@ -129,6 +129,26 @@ def get_study_plans():
     except Exception as e:
         return jsonify({"error": str(e)}), 500
 
+@app.route("/api/study-plans/<int:plan_id>", methods=["DELETE"])
+def delete_study_plan(plan_id):
+    try:
+        response = requests.delete(
+            f"{SUPABASE_TABLE_URL}?id=eq.{plan_id}",
+            headers=supabase_headers()
+        )
+
+        if response.status_code in [200, 204]:
+            return jsonify({
+                "message": "Study plan deleted successfully"
+            }), 200
+
+        return jsonify({
+            "error": f"Supabase error: {response.status_code}",
+            "detail": response.text
+        }), 500
+
+    except Exception as e:
+        return jsonify({"error": str(e)}), 500
 
 if __name__ == "__main__":
     port = int(os.environ.get("PORT", 5000))
