@@ -29,3 +29,5 @@ export async function getStudyPlans() {
 
   return response.json();
 }
+
+export const saveStudyPlan = createStudyPlan;
